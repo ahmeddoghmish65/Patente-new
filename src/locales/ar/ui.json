@@ -1,0 +1,28 @@
+{
+  "app_name": "Patente Hub",
+  "nav": {
+    "home": "الرئيسية",
+    "lessons": "الدروس",
+    "signs": "الإشارات",
+    "dictionary": "القاموس",
+    "training": "التدريب",
+    "community": "المجتمع",
+    "profile": "حسابي",
+    "admin": "لوحة التحكم",
+    "mistakes": "أخطائي",
+    "exam": "محاكاة الامتحان"
+  },
+  "sections": { "title": "الأقسام", "subtitle": "اختر قسماً للبدء", "all": "جميع الأقسام", "progress": "التقدم" },
+  "lessons": { "title": "الدروس", "subtitle": "تعلم وافهم قواعد المرور", "start": "ابدأ الدرس", "continue": "تابع", "completed": "مكتمل", "no_lessons": "لا توجد دروس في هذا القسم بعد", "back": "العودة للأقسام", "quiz_section": "اختبار القسم كامل", "start_quiz": "ابدأ اختبار الدرس" },
+  "questions": { "title": "الأسئلة", "true": "صحيح", "false": "خطأ", "next": "السؤال التالي", "finish": "عرض النتيجة", "explanation": "الشرح", "correct_answer": "إجابة صحيحة!", "wrong_answer": "إجابة خاطئة", "result": "النتيجة", "retry": "إعادة الاختبار", "back_lessons": "العودة للدروس", "pass_threshold": "حد النجاح", "time": "الوقت", "correct": "صحيح", "wrong": "خطأ", "easy": "سهل", "medium": "متوسط", "hard": "صعب" },
+  "dictionary": { "title": "القاموس", "subtitle": "مصطلحات رخصة القيادة بالعربية والإيطالية", "search": "بحث عن مصطلح...", "no_results": "لا توجد مصطلحات", "translate_icon": "translate" },
+  "signs": { "title": "الإشارات المرورية", "subtitle": "تعلم إشارات المرور الإيطالية", "search": "بحث عن إشارة بالعربية أو الإيطالية...", "all": "الكل", "no_results": "لا توجد إشارات", "no_signs": "سيتم إضافة الإشارات من لوحة التحكم", "description_ar": "الوصف بالعربية", "description_it": "Descrizione" },
+  "mistakes": { "title": "أخطائي", "subtitle": "الأسئلة التي أخطأت فيها — ركز عليها!", "empty": "لا توجد أخطاء!", "empty_sub": "ابدأ بحل الاختبارات وسيتم تتبع أخطائك هنا", "your_answer": "إجابتك:", "correct_answer": "الصحيح:", "times": "مرات" },
+  "dashboard": { "welcome_morning": "صباح الخير", "welcome_evening": "مساء الخير", "streak": "يوم متتالي", "level": "المستوى", "accuracy": "الدقة", "lessons_label": "الدروس", "completed_lessons": "درس مكتمل", "questions_label": "الأسئلة", "questions_available": "سؤال متاح", "signs_label": "الإشارات", "signs_sub": "إشارات المرور", "dict_label": "القاموس", "dict_sub": "مصطلحات مرورية", "training_label": "التدريب", "training_sub": "تمرّن وتعلّم", "exam_label": "محاكي الامتحان", "exam_sub": "جاهزيتك:", "mistakes_label": "أخطائي", "mistakes_sub": "راجعها لتتحسن", "no_mistakes": "لا توجد أخطاء بعد", "progress_title": "ملخص التقدم", "readiness": "جاهزية:", "completed": "دروس مكتملة", "quizzes": "اختبارات" },
+  "settings": { "title": "الإعدادات", "saved": "تم الحفظ", "save": "حفظ", "cancel": "إلغاء", "theme": "المظهر", "theme_light": "فاتح", "theme_dark": "داكن", "notifications": "الإشعارات", "sound": "الأصوات", "font_size": "حجم الخط", "font_small": "صغير", "font_medium": "متوسط", "font_large": "كبير" },
+  "language": { "title": "لغة الواجهة", "subtitle": "اختر لغة عرض التطبيق", "ar": "العربية", "it": "Italiano", "current_rtl": "RTL ←", "current_ltr": "→ LTR" },
+  "content_language": { "title": "لغة المحتوى التعليمي", "subtitle": "اختر لغة عرض الدروس والأسئلة", "ar_only": "عربي فقط", "it_only": "Italiano فقط", "both": "عربي + Italiano", "preview": "معاينة" },
+  "smart_learning": { "title": "وضع التعلم الذكي", "subtitle": "يظهر السؤال بلغة واحدة، ثم تظهر الترجمة بعد الإجابة", "enabled": "مفعّل", "disabled": "معطّل", "translation_label": "الترجمة" },
+  "common": { "loading": "جاري التحميل...", "error": "حدث خطأ", "back": "رجوع", "close": "إغلاق", "search": "بحث", "start": "ابدأ", "yes": "نعم", "no": "لا", "verified": "موثّق", "banned": "محظور", "completed": "مكتمل" },
+  "auth": { "login": "تسجيل الدخول", "register": "إنشاء حساب", "logout": "تسجيل الخروج", "email": "البريد الإلكتروني", "password": "كلمة المرور", "name": "الاسم", "forgot": "نسيت كلمة المرور؟" }
+}
