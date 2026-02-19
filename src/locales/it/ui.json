@@ -1,0 +1,28 @@
+{
+  "app_name": "Patente Hub",
+  "nav": {
+    "home": "Home",
+    "lessons": "Lezioni",
+    "signs": "Segnali",
+    "dictionary": "Dizionario",
+    "training": "Allenamento",
+    "community": "Comunità",
+    "profile": "Profilo",
+    "admin": "Pannello Admin",
+    "mistakes": "I miei errori",
+    "exam": "Simulazione Esame"
+  },
+  "sections": { "title": "Sezioni", "subtitle": "Scegli una sezione per iniziare", "all": "Tutte le sezioni", "progress": "Progresso" },
+  "lessons": { "title": "Lezioni", "subtitle": "Studia e comprendi il codice della strada", "start": "Inizia lezione", "continue": "Continua", "completed": "Completata", "no_lessons": "Nessuna lezione in questa sezione", "back": "Torna alle sezioni", "quiz_section": "Quiz sezione completa", "start_quiz": "Inizia quiz lezione" },
+  "questions": { "title": "Domande", "true": "Vero", "false": "Falso", "next": "Domanda successiva", "finish": "Mostra risultato", "explanation": "Spiegazione", "correct_answer": "Risposta corretta!", "wrong_answer": "Risposta errata", "result": "Risultato", "retry": "Riprova quiz", "back_lessons": "Torna alle lezioni", "pass_threshold": "Soglia superamento", "time": "Tempo", "correct": "Corrette", "wrong": "Errate", "easy": "Facile", "medium": "Medio", "hard": "Difficile" },
+  "dictionary": { "title": "Dizionario", "subtitle": "Termini della patente in arabo e italiano", "search": "Cerca un termine...", "no_results": "Nessun termine trovato", "translate_icon": "translate" },
+  "signs": { "title": "Segnali stradali", "subtitle": "Impara i segnali stradali italiani", "search": "Cerca segnale in arabo o italiano...", "all": "Tutti", "no_results": "Nessun segnale", "no_signs": "I segnali verranno aggiunti dal pannello admin", "description_ar": "Descrizione in arabo", "description_it": "Descrizione" },
+  "mistakes": { "title": "I miei errori", "subtitle": "Domande sbagliate — concentrati su di esse!", "empty": "Nessun errore!", "empty_sub": "Inizia i quiz e i tuoi errori verranno tracciati qui", "your_answer": "La tua risposta:", "correct_answer": "Corretta:", "times": "volte" },
+  "dashboard": { "welcome_morning": "Buongiorno", "welcome_evening": "Buonasera", "streak": "giorni consecutivi", "level": "Livello", "accuracy": "Precisione", "lessons_label": "Lezioni", "completed_lessons": "lezione completata", "questions_label": "Domande", "questions_available": "domande disponibili", "signs_label": "Segnali", "signs_sub": "Segnali stradali", "dict_label": "Dizionario", "dict_sub": "Termini stradali", "training_label": "Allenamento", "training_sub": "Allenati e impara", "exam_label": "Simulatore Esame", "exam_sub": "Prontezza:", "mistakes_label": "I miei errori", "mistakes_sub": "Ripassali per migliorare", "no_mistakes": "Nessun errore ancora", "progress_title": "Riepilogo progressi", "readiness": "Prontezza:", "completed": "lezioni completate", "quizzes": "quiz" },
+  "settings": { "title": "Impostazioni", "saved": "Salvato", "save": "Salva", "cancel": "Annulla", "theme": "Tema", "theme_light": "Chiaro", "theme_dark": "Scuro", "notifications": "Notifiche", "sound": "Suoni", "font_size": "Dimensione testo", "font_small": "Piccolo", "font_medium": "Medio", "font_large": "Grande" },
+  "language": { "title": "Lingua interfaccia", "subtitle": "Scegli la lingua dell'app", "ar": "العربية", "it": "Italiano", "current_rtl": "RTL ←", "current_ltr": "→ LTR" },
+  "content_language": { "title": "Lingua contenuti didattici", "subtitle": "Scegli la lingua per lezioni e domande", "ar_only": "Solo Arabo", "it_only": "Solo Italiano", "both": "Arabo + Italiano", "preview": "Anteprima" },
+  "smart_learning": { "title": "Modalità apprendimento intelligente", "subtitle": "La domanda appare in una lingua, poi la traduzione dopo la risposta", "enabled": "Attivato", "disabled": "Disattivato", "translation_label": "Traduzione" },
+  "common": { "loading": "Caricamento...", "error": "Si è verificato un errore", "back": "Indietro", "close": "Chiudi", "search": "Cerca", "start": "Inizia", "yes": "Sì", "no": "No", "verified": "Verificato", "banned": "Bannato", "completed": "Completato" },
+  "auth": { "login": "Accedi", "register": "Registrati", "logout": "Esci", "email": "Email", "password": "Password", "name": "Nome", "forgot": "Password dimenticata?" }
+}
