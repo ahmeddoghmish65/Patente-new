@@ -40,6 +40,16 @@ export function AdminPage() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tab, store.posts]);
 
+  // Auto-refresh logs when logs tab is active
+  useEffect(() => {
+    if (tab === 'logs') {
+      store.loadAdminLogs();
+      const interval = setInterval(() => store.loadAdminLogs(), 5000);
+      return () => clearInterval(interval);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tab]);
+
   const loadAllComments = async () => {
     const comments: (Comment & { postContent?: string })[] = [];
     for (const post of store.posts) {
@@ -847,8 +857,16 @@ export function AdminPage() {
         <div className="bg-white rounded-xl border border-surface-100 overflow-hidden">
           <div className="p-4 border-b border-surface-100 flex items-center justify-between">
             <h2 className="font-bold text-surface-900">سجلات الإدارة ({store.adminLogs.length})</h2>
-            <div className="flex gap-2">
+            <div className="flex gap-2 items-center">
               <input className="border border-surface-200 rounded-lg px-3 py-1.5 text-sm w-40" placeholder="بحث..." value={search} onChange={e => setSearch(e.target.value)} />
+              <button
+                className="flex items-center gap-1 text-xs text-primary-600 hover:text-primary-700 border border-primary-200 rounded-lg px-2.5 py-1.5 hover:bg-primary-50 transition-colors"
+                onClick={() => store.loadAdminLogs()}
+                title="تحديث السجلات"
+              >
+                <Icon name="refresh" size={14} />
+                تحديث
+              </button>
             </div>
           </div>
           <div className="divide-y divide-surface-50 max-h-[600px] overflow-y-auto">
