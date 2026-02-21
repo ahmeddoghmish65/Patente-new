@@ -33,6 +33,7 @@ export function CommunityPage() {
   const [replyingTo, setReplyingTo] = useState<{ commentId: string; userName: string } | null>(null);
   const [replyContent, setReplyContent] = useState('');
   const [commentLikes, setCommentLikes] = useState<Record<string, boolean>>({});
+  const [commentLikeCounts, setCommentLikeCounts] = useState<Record<string, number>>({});
   const [postType, setPostType] = useState<'post' | 'quiz'>('post');
   const [quizQuestion, setQuizQuestion] = useState('');
   const [quizAnswer, setQuizAnswer] = useState<boolean>(true);
@@ -73,6 +74,10 @@ export function CommunityPage() {
         const cl = localStorage.getItem(`commentLikes_${user.id}`);
         if (cl) setCommentLikes(JSON.parse(cl));
       } catch { /* ignore */ }
+      try {
+        const clc = localStorage.getItem('commentLikeCounts');
+        if (clc) setCommentLikeCounts(JSON.parse(clc));
+      } catch { /* ignore */ }
     }
     (async () => {
       const db = await getDB();
@@ -89,6 +94,13 @@ export function CommunityPage() {
       localStorage.setItem(`commentLikes_${user.id}`, JSON.stringify(commentLikes));
     }
   }, [commentLikes, user]);
+
+  // Save comment like counts to localStorage whenever they change
+  useEffect(() => {
+    if (Object.keys(commentLikeCounts).length > 0) {
+      localStorage.setItem('commentLikeCounts', JSON.stringify(commentLikeCounts));
+    }
+  }, [commentLikeCounts]);
 
   const isVerified = (userId: string) => verifiedUsers[userId] || false;
 
@@ -125,8 +137,16 @@ export function CommunityPage() {
 
   const toggleCommentLike = (commentId: string) => {
     setCommentLikes(prev => {
-      const updated = { ...prev, [commentId]: !prev[commentId] };
+      const wasLiked = !!prev[commentId];
+      const updated = { ...prev, [commentId]: !wasLiked };
       if (user) localStorage.setItem(`commentLikes_${user.id}`, JSON.stringify(updated));
+      setCommentLikeCounts(counts => {
+        const current = counts[commentId] || 0;
+        const newCount = wasLiked ? Math.max(0, current - 1) : current + 1;
+        const updatedCounts = { ...counts, [commentId]: newCount };
+        localStorage.setItem('commentLikeCounts', JSON.stringify(updatedCounts));
+        return updatedCounts;
+      });
       return updated;
     });
   };
@@ -205,9 +225,17 @@ export function CommunityPage() {
 
   const toggleFollow = (userId: string) => {
     if (!user) return;
-    const newF = following.includes(userId) ? following.filter(id => id !== userId) : [...following, userId];
+    const wasFollowing = following.includes(userId);
+    const newF = wasFollowing ? following.filter(id => id !== userId) : [...following, userId];
     setFollowing(newF);
     localStorage.setItem(`following_${user.id}`, JSON.stringify(newF));
+    // Update follower count in user profile modal immediately without reload
+    if (viewUserId === userId && viewUserData) {
+      setViewUserData(prev => prev ? {
+        ...prev,
+        followersCount: wasFollowing ? Math.max(0, prev.followersCount - 1) : prev.followersCount + 1,
+      } : prev);
+    }
   };
 
   const openUserProfile = useCallback(async (userId: string) => {
@@ -350,10 +378,16 @@ export function CommunityPage() {
               <button className={cn('flex items-center gap-0.5 text-[11px]', commentLikes[c.id] ? 'text-red-500' : 'text-surface-400 hover:text-red-400')}
                 onClick={() => toggleCommentLike(c.id)}>
                 <Icon name="favorite" size={13} filled={commentLikes[c.id]} />
+                {(commentLikeCounts[c.id] || 0) > 0 && (
+                  <span className="text-[10px]">{commentLikeCounts[c.id]}</span>
+                )}
               </button>
               <button className="text-[11px] text-surface-400 hover:text-primary-500 flex items-center gap-0.5"
                 onClick={() => setReplyingTo({ commentId: c.id, userName: c.userName })}>
                 <Icon name="reply" size={13} /> رد
+                {replies.length > 0 && (
+                  <span className="bg-surface-100 text-surface-500 text-[10px] px-1 rounded-full">{replies.length}</span>
+                )}
               </button>
               <button className="text-[11px] text-surface-400 hover:text-orange-500" onClick={() => setReportModal({ type: 'comment', id: c.id })}>
                 <Icon name="flag" size={12} />
@@ -385,6 +419,9 @@ export function CommunityPage() {
                     <button className={cn('flex items-center gap-0.5 text-[11px]', commentLikes[r.id] ? 'text-red-500' : 'text-surface-400 hover:text-red-400')}
                       onClick={() => toggleCommentLike(r.id)}>
                       <Icon name="favorite" size={13} filled={commentLikes[r.id]} />
+                      {(commentLikeCounts[r.id] || 0) > 0 && (
+                        <span className="text-[10px]">{commentLikeCounts[r.id]}</span>
+                      )}
                     </button>
                     <button className="text-[11px] text-surface-400 hover:text-orange-500" onClick={() => setReportModal({ type: 'comment', id: r.id })}>
                       <Icon name="flag" size={12} />
