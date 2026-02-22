@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useAuthStore } from '@/store/authStore';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { Icon } from '@/components/ui/Icon';
 import { Button } from '@/components/ui/Button';
 import { cn } from '@/utils/cn';
@@ -10,6 +11,7 @@ interface Props {
 }
 
 export function ExamSimulatorPage({ onNavigate }: Props) {
+  const { isRTL } = useLanguage();
   const { questions, loadQuestions, saveQuizResult } = useAuthStore();
   const [examQuestions, setExamQuestions] = useState<Question[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -97,7 +99,7 @@ export function ExamSimulatorPage({ onNavigate }: Props) {
   if (phase === 'intro') return (
     <div className="max-w-lg mx-auto">
       <button onClick={() => onNavigate('dashboard')} className="flex items-center gap-2 text-surface-500 hover:text-primary-600 mb-6">
-        <Icon name="arrow_forward" size={20} /><span className="text-sm">العودة</span>
+        <Icon name={isRTL ? 'arrow_forward' : 'arrow_back'} size={20} /><span className="text-sm">العودة</span>
       </button>
       <div className="bg-white rounded-2xl border border-surface-100 overflow-hidden">
         <div className="p-8 text-center">
@@ -206,7 +208,7 @@ export function ExamSimulatorPage({ onNavigate }: Props) {
             {/* Error detail bar */}
             <div className={cn('rounded-xl p-4 mb-6 flex items-center justify-center gap-3', passed ? 'bg-success-50 border border-success-100' : 'bg-danger-50 border border-danger-100')}>
               <Icon name={passed ? 'check_circle' : 'error'} size={24} className={passed ? 'text-success-500' : 'text-danger-500'} filled />
-              <div className="text-right">
+              <div>
                 <p className={cn('text-sm font-bold', passed ? 'text-success-700' : 'text-danger-700')}>
                   عدد الأخطاء: {errors} من أصل {MAX_ERRORS} مسموح
                 </p>
@@ -239,7 +241,7 @@ export function ExamSimulatorPage({ onNavigate }: Props) {
     return (
       <div className="max-w-2xl mx-auto">
         <button onClick={() => setPhase('result')} className="flex items-center gap-2 text-surface-500 hover:text-primary-600 mb-4">
-          <Icon name="arrow_forward" size={20} /><span className="text-sm">العودة للنتيجة</span>
+          <Icon name={isRTL ? 'arrow_forward' : 'arrow_back'} size={20} /><span className="text-sm">العودة للنتيجة</span>
         </button>
         
         {/* Error summary at top */}
@@ -396,12 +398,12 @@ export function ExamSimulatorPage({ onNavigate }: Props) {
         <button className={cn('p-3 rounded-xl border border-surface-200 transition-all',
           currentIndex > 0 ? 'hover:bg-surface-50 text-surface-700' : 'opacity-30 cursor-not-allowed'
         )} onClick={prevQuestion} disabled={currentIndex === 0}>
-          <Icon name="chevron_right" size={22} />
+          <Icon name={isRTL ? 'chevron_right' : 'chevron_left'} size={22} />
         </button>
         <div className="flex-1 text-center">
           {answeredCount === examQuestions.length ? (
             <Button fullWidth size="lg" onClick={finishExam} className="!bg-green-600 hover:!bg-green-700">
-              <Icon name="send" size={18} className="ml-2" /> تسليم الامتحان
+              <Icon name="send" size={18} className={isRTL ? 'ml-2' : 'mr-2'} /> تسليم الامتحان
             </Button>
           ) : (
             <Button fullWidth variant="outline" size="lg" onClick={finishExam}>
@@ -412,7 +414,7 @@ export function ExamSimulatorPage({ onNavigate }: Props) {
         <button className={cn('p-3 rounded-xl border border-surface-200 transition-all',
           currentIndex < examQuestions.length - 1 ? 'hover:bg-surface-50 text-surface-700' : 'opacity-30 cursor-not-allowed'
         )} onClick={nextQuestion} disabled={currentIndex >= examQuestions.length - 1}>
-          <Icon name="chevron_left" size={22} />
+          <Icon name={isRTL ? 'chevron_left' : 'chevron_right'} size={22} />
         </button>
       </div>
     </div>

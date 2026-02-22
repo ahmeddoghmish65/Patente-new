@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback } from 'react';
 import { useAuthStore } from '@/store/authStore';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { Icon } from '@/components/ui/Icon';
 import { Button } from '@/components/ui/Button';
 import { cn } from '@/utils/cn';
@@ -17,6 +18,7 @@ function getReplyContent(c: Comment): string {
 }
 
 export function CommunityPage() {
+  const { isRTL } = useLanguage();
   const { posts, loadPosts, createPost, updatePost, deletePost, toggleLike, checkLike, getComments, createComment, deleteComment, createReport, user } = useAuthStore();
   const [newPost, setNewPost] = useState('');
   const [posting, setPosting] = useState(false);
@@ -403,16 +405,16 @@ export function CommunityPage() {
         </div>
 
         {visibleReplies.length > 0 && (
-          <div className="mr-8 space-y-2 border-r-2 border-primary-100 pr-3">
+          <div className={cn('space-y-2', isRTL ? 'mr-8 border-r-2 border-primary-100 pr-3' : 'ml-8 border-l-2 border-primary-100 pl-3')}>
             {visibleReplies.map(r => (
               <div key={r.id} className="flex items-start gap-2">
                 <UserAvatar avatar={r.userAvatar} name={r.userName} size="sm" onClick={() => openUserProfile(r.userId)} />
                 <div className="flex-1 bg-white rounded-xl px-3 py-2">
                   <div className="flex items-center gap-1">
                     <UserName userId={r.userId} name={r.userName} className="text-xs text-surface-800" onClick={() => openUserProfile(r.userId)} />
-                    <Icon name="arrow_back" size={10} className="text-surface-300" />
+                    <Icon name={isRTL ? 'arrow_back' : 'arrow_forward'} size={10} className="text-surface-300" />
                     <span className="text-[10px] text-primary-500">{c.userName}</span>
-                    <span className="text-[10px] text-surface-400 mr-auto">{new Date(r.createdAt).toLocaleDateString('ar')}</span>
+                    <span className={cn('text-[10px] text-surface-400', isRTL ? 'mr-auto' : 'ml-auto')}>{new Date(r.createdAt).toLocaleDateString('ar')}</span>
                   </div>
                   <p className="text-sm text-surface-600 mt-0.5">{getReplyContent(r)}</p>
                   <div className="flex items-center gap-3 mt-1.5">
@@ -437,7 +439,7 @@ export function CommunityPage() {
               </div>
             ))}
             {hasMoreReplies && (
-              <button className="text-xs text-primary-500 font-medium mr-8 hover:text-primary-700"
+              <button className={cn('text-xs text-primary-500 font-medium hover:text-primary-700', isRTL ? 'mr-8' : 'ml-8')}
                 onClick={() => openPostDetail(postId)}>
                 عرض كل الردود ({replies.length})
               </button>
@@ -446,14 +448,14 @@ export function CommunityPage() {
         )}
 
         {replyingTo?.commentId === c.id && (
-          <div className="mr-8 flex gap-2 items-center">
+          <div className={cn('flex gap-2 items-center', isRTL ? 'mr-8' : 'ml-8')}>
             <div className="flex-1 relative">
-              <input className="w-full border border-primary-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary-100 pr-16"
+              <input className={cn('w-full border border-primary-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary-100', isRTL ? 'pr-16' : 'pl-16')}
                 placeholder={`رد على ${replyingTo.userName}...`} value={replyContent}
                 onChange={e => setReplyContent(e.target.value)}
                 onKeyDown={e => { if (e.key === 'Enter') handleReply(isDetail ? detailPostId! : postId); }}
                 autoFocus />
-              <button className="absolute left-1 top-1/2 -translate-y-1/2 text-xs text-surface-400 hover:text-surface-600 px-2"
+              <button className={cn('absolute top-1/2 -translate-y-1/2 text-xs text-surface-400 hover:text-surface-600 px-2', isRTL ? 'right-1' : 'left-1')}
                 onClick={() => { setReplyingTo(null); setReplyContent(''); }}>إلغاء</button>
             </div>
             <Button size="sm" onClick={() => handleReply(isDetail ? detailPostId! : postId)} disabled={!replyContent.trim()}>
@@ -589,7 +591,7 @@ export function CommunityPage() {
             <Icon name="chat_bubble" size={20} />{post.commentsCount}
           </button>
           {!showAllComments && post.commentsCount > 3 && (
-            <button className="text-xs text-primary-500 font-medium hover:text-primary-700 mr-auto" onClick={() => openPostDetail(post.id)}>
+            <button className={cn('text-xs text-primary-500 font-medium hover:text-primary-700', isRTL ? 'mr-auto' : 'ml-auto')} onClick={() => openPostDetail(post.id)}>
               عرض كل التعليقات
             </button>
           )}

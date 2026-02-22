@@ -139,7 +139,7 @@ export function AuthPage({ mode, onNavigate }: AuthPageProps) {
               <Input label="البريد الإلكتروني" type="email" placeholder="example@email.com" icon="email" value={email} onChange={e => setEmail(e.target.value)} dir="ltr" className="text-left" />
               <div className="relative">
                 <Input label="كلمة المرور" type={showPassword ? 'text' : 'password'} placeholder="••••••••" icon="lock" value={password} onChange={e => setPassword(e.target.value)} dir="ltr" className="text-left" />
-                <button type="button" className="absolute left-3 top-9 text-surface-400 hover:text-surface-600" onClick={() => setShowPassword(!showPassword)}>
+                <button type="button" className="absolute right-3 top-9 text-surface-400 hover:text-surface-600" onClick={() => setShowPassword(!showPassword)}>
                   <Icon name={showPassword ? 'visibility_off' : 'visibility'} size={20} />
                 </button>
               </div>
@@ -168,7 +168,7 @@ export function AuthPage({ mode, onNavigate }: AuthPageProps) {
               <Input label="البريد الإلكتروني *" type="email" placeholder="example@email.com" icon="email" value={email} onChange={e => setEmail(e.target.value)} dir="ltr" className="text-left" />
               <div className="relative">
                 <Input label="كلمة المرور *" type={showPassword ? 'text' : 'password'} placeholder="6 أحرف على الأقل" icon="lock" value={password} onChange={e => setPassword(e.target.value)} dir="ltr" className="text-left" />
-                <button type="button" className="absolute left-3 top-9 text-surface-400 hover:text-surface-600" onClick={() => setShowPassword(!showPassword)}>
+                <button type="button" className="absolute right-3 top-9 text-surface-400 hover:text-surface-600" onClick={() => setShowPassword(!showPassword)}>
                   <Icon name={showPassword ? 'visibility_off' : 'visibility'} size={20} />
                 </button>
               </div>

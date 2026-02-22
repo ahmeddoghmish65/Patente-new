@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useAuthStore } from '@/store/authStore';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { Icon } from '@/components/ui/Icon';
 import { cn } from '@/utils/cn';
 
@@ -9,6 +10,7 @@ interface Props {
 
 export function QuestionsBrowsePage({ onNavigate: _onNavigate }: Props) {
   void _onNavigate;
+  const { isRTL } = useLanguage();
   const { sections, questions, loadSections, loadQuestions, user } = useAuthStore();
   const [selectedSection, setSelectedSection] = useState<string | null>(null);
   const [expandedQ, setExpandedQ] = useState<string | null>(null);
@@ -27,7 +29,7 @@ export function QuestionsBrowsePage({ onNavigate: _onNavigate }: Props) {
     return (
       <div>
         <button onClick={() => setSelectedSection(null)} className="flex items-center gap-2 text-surface-500 hover:text-primary-600 mb-5 transition-colors">
-          <Icon name="arrow_forward" size={20} />
+          <Icon name={isRTL ? 'arrow_forward' : 'arrow_back'} size={20} />
           <span className="text-sm font-medium">العودة للأقسام</span>
         </button>
 
@@ -59,7 +61,7 @@ export function QuestionsBrowsePage({ onNavigate: _onNavigate }: Props) {
             {sectionQuestions.map((q, idx) => (
               <div key={q.id} className="bg-white rounded-xl border border-surface-100 overflow-hidden">
                 <button
-                  className="w-full p-4 text-right flex items-start gap-3 hover:bg-surface-50 transition-colors"
+                  className={cn('w-full p-4 flex items-start gap-3 hover:bg-surface-50 transition-colors', isRTL ? 'text-right flex-row-reverse' : 'text-left')}
                   onClick={() => setExpandedQ(expandedQ === q.id ? null : q.id)}
                 >
                   <span className="w-8 h-8 rounded-lg bg-surface-100 flex items-center justify-center text-xs font-bold text-surface-500 shrink-0 mt-0.5">
@@ -86,7 +88,7 @@ export function QuestionsBrowsePage({ onNavigate: _onNavigate }: Props) {
                 </button>
 
                 {expandedQ === q.id && (
-                  <div className="px-4 pb-4 border-t border-surface-50 pt-3 mr-11">
+                  <div className={cn('px-4 pb-4 border-t border-surface-50 pt-3', isRTL ? 'mr-11' : 'ml-11')}>
                     <div className="bg-blue-50 rounded-lg p-3 border border-blue-100">
                       <p className="text-xs font-semibold text-blue-600 mb-1 flex items-center gap-1">
                         <Icon name="lightbulb" size={14} filled />
@@ -140,7 +142,7 @@ export function QuestionsBrowsePage({ onNavigate: _onNavigate }: Props) {
             return (
               <button
                 key={section.id}
-                className="w-full bg-white rounded-xl p-4 border border-surface-100 hover:border-purple-200 hover:shadow-md transition-all text-right flex items-center gap-4 group"
+                className={cn('w-full bg-white rounded-xl p-4 border border-surface-100 hover:border-purple-200 hover:shadow-md transition-all flex items-center gap-4 group', isRTL ? 'text-right flex-row-reverse' : 'text-left')}
                 onClick={() => setSelectedSection(section.id)}
               >
                 {/* Section IMAGE instead of icon */}
@@ -162,7 +164,7 @@ export function QuestionsBrowsePage({ onNavigate: _onNavigate }: Props) {
                   <span className="text-xs bg-purple-50 text-purple-600 px-2 py-0.5 rounded-full font-medium">
                     {sectionQs.length} سؤال
                   </span>
-                  <Icon name="chevron_left" size={18} className="text-surface-300 group-hover:text-purple-400" />
+                  <Icon name={isRTL ? 'chevron_left' : 'chevron_right'} size={18} className="text-surface-300 group-hover:text-purple-400" />
                 </div>
               </button>
             );

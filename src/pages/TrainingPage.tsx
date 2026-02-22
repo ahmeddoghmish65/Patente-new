@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback } from 'react';
 import { useAuthStore } from '@/store/authStore';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { Icon } from '@/components/ui/Icon';
 import { Button } from '@/components/ui/Button';
 import { cn } from '@/utils/cn';
@@ -11,6 +12,7 @@ type TrainMode = 'questions' | 'signs' | 'dictionary' | 'weak-points' | 'timed' 
 type Phase = 'select' | 'training' | 'result';
 
 export function TrainingPage({ onNavigate }: Props) {
+  const { isRTL } = useLanguage();
   const { questions, signs, dictEntries, mistakes, loadQuestions, loadSigns, loadDictEntries, loadMistakes } = useAuthStore();
   void onNavigate;
   const [mode, setMode] = useState<TrainMode>('questions');
@@ -125,7 +127,7 @@ export function TrainingPage({ onNavigate }: Props) {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         {trainModes.map(item => (
           <button key={item.id}
-            className="bg-white rounded-xl p-4 border border-surface-100 hover:border-primary-200 hover:shadow-lg transition-all text-right group flex items-start gap-4"
+            className={cn('bg-white rounded-xl p-4 border border-surface-100 hover:border-primary-200 hover:shadow-lg transition-all group flex items-start gap-4', isRTL ? 'text-right flex-row-reverse' : 'text-left')}
             onClick={() => startTraining(item.id)} disabled={item.count === 0}>
             <div className={cn('w-12 h-12 rounded-xl flex items-center justify-center shrink-0 bg-gradient-to-br text-white shadow-lg', item.gradient)}>
               <Icon name={item.icon} size={24} filled />
@@ -182,7 +184,7 @@ export function TrainingPage({ onNavigate }: Props) {
             <span className={cn('text-sm font-mono font-bold px-3 py-1 rounded-lg',
               TIMED_LIMIT - timedElapsed < 30 ? 'bg-danger-50 text-danger-600 animate-pulse' : 'bg-surface-100 text-surface-600'
             )}>
-              <Icon name="timer" size={14} className="inline ml-1" />
+              <Icon name="timer" size={14} className={cn('inline', isRTL ? 'ml-1' : 'mr-1')} />
               {Math.floor((TIMED_LIMIT - timedElapsed) / 60)}:{((TIMED_LIMIT - timedElapsed) % 60).toString().padStart(2, '0')}
             </span>
           )}
@@ -227,7 +229,7 @@ export function TrainingPage({ onNavigate }: Props) {
                 </div>
                 <Button fullWidth onClick={() => handleNext(userAnswer === item.isTrue)}>
                   {index < items.length - 1 ? 'التالي' : 'عرض النتيجة'}
-                  <Icon name="arrow_back" size={18} className="mr-1" />
+                  <Icon name={isRTL ? 'arrow_back' : 'arrow_forward'} size={18} className={isRTL ? 'mr-1' : 'ml-1'} />
                 </Button>
               </div>
             )}
