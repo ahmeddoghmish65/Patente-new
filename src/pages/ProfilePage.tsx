@@ -1,6 +1,7 @@
 import { LanguageSettings } from '@/components/settings/LanguageSettings';
 import { useState, useRef, useEffect } from 'react';
 import { useAuthStore } from '@/store/authStore';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { Icon } from '@/components/ui/Icon';
 import { Button } from '@/components/ui/Button';
 import { cn } from '@/utils/cn';
@@ -41,6 +42,7 @@ const COUNTRY_CODES = [
 ];
 
 export function ProfilePage({ onNavigate }: ProfilePageProps) {
+  const { isRTL } = useLanguage();
   const { user, logout, updateSettings, updateProfile, mistakes, loadMistakes } = useAuthStore();
   
   const [showEditPage, setShowEditPage] = useState(false);
@@ -321,7 +323,7 @@ export function ProfilePage({ onNavigate }: ProfilePageProps) {
               className={cn('w-12 h-6 rounded-full transition-colors relative', editForm.privacyHideStats ? 'bg-primary-500' : 'bg-surface-200')}
               onClick={() => setEditForm(f => ({ ...f, privacyHideStats: !f.privacyHideStats }))}
             >
-              <div className={cn('w-5 h-5 rounded-full bg-white shadow-sm absolute top-0.5 transition-all', editForm.privacyHideStats ? 'left-0.5' : 'left-6')} />
+              <div className={cn('w-5 h-5 rounded-full bg-white shadow-sm absolute top-0.5 transition-all', editForm.privacyHideStats ? 'start-0.5' : (isRTL ? 'right-6' : 'left-6'))} />
             </button>
           </label>
         </div>
@@ -357,7 +359,7 @@ export function ProfilePage({ onNavigate }: ProfilePageProps) {
           </div>
         )}
         <Button fullWidth size="lg" onClick={handleSaveEdit}>
-          <Icon name="save" size={20} className="ml-2" /> حفظ جميع التعديلات
+          <Icon name="save" size={20} className={isRTL ? 'ml-2' : 'mr-2'} /> حفظ جميع التعديلات
         </Button>
       </div>
     );
@@ -438,19 +440,19 @@ export function ProfilePage({ onNavigate }: ProfilePageProps) {
         <div className="w-10 h-10 bg-primary-50 rounded-xl flex items-center justify-center group-hover:bg-primary-100 transition-colors">
           <Icon name="manage_accounts" size={22} className="text-primary-500" />
         </div>
-        <div className="flex-1 text-right">
+        <div className={cn('flex-1', isRTL ? 'text-right' : 'text-left')}>
           <h3 className="font-bold text-surface-900">تعديل بيانات الحساب</h3>
           <p className="text-xs text-surface-400">الاسم، الصورة، البريد، كلمة المرور، الخصوصية...</p>
         </div>
-        <Icon name="chevron_left" size={22} className="text-surface-300 group-hover:text-primary-500 transition-colors" />
+        <Icon name={isRTL ? 'chevron_left' : 'chevron_right'} size={22} className="text-surface-300 group-hover:text-primary-500 transition-colors" />
       </button>
 
       {/* Admin Panel Button */}
       {isAdmin && (
         <button className="w-full bg-gradient-to-r from-primary-600 to-primary-700 rounded-xl p-4 flex items-center gap-3 text-white shadow-lg shadow-primary-200 hover:shadow-xl transition-all" onClick={() => onNavigate('admin')}>
           <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center"><Icon name="admin_panel_settings" size={24} filled /></div>
-          <div className="flex-1 text-right"><h3 className="font-bold">لوحة التحكم</h3><p className="text-xs text-primary-200">إدارة المحتوى والمستخدمين</p></div>
-          <Icon name="chevron_left" size={22} />
+          <div className={cn('flex-1', isRTL ? 'text-right' : 'text-left')}><h3 className="font-bold">لوحة التحكم</h3><p className="text-xs text-primary-200">إدارة المحتوى والمستخدمين</p></div>
+          <Icon name={isRTL ? 'chevron_left' : 'chevron_right'} size={22} />
         </button>
       )}
 

@@ -167,3 +167,17 @@ html[dir="rtl"] ::-webkit-scrollbar {
   left: 0;
   right: auto;
 }
+
+/* ===== LTR (Italian) Mode Fixes ===== */
+
+/* Override hardcoded text-right in LTR */
+html[dir="ltr"] .text-right {
+  text-align: left;
+}
+
+/* Logical margin/padding utilities */
+html[dir="ltr"] .ms-auto { margin-inline-start: auto; }
+html[dir="ltr"] .me-auto { margin-inline-end: auto; }
+
+/* Fix flex-row-reverse used WITHOUT isRTL guard in LTR */
+html[dir="ltr"] .\[dir\=ltr\]\:flex-row { flex-direction: row; }
